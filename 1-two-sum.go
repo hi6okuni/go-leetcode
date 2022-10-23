@@ -30,8 +30,7 @@ package main
 func twoSum(nums []int, target int) []int {
     count := make(map[int]int)
 	for i, num := range nums {
-		j, ok := count[num]
-		if ok {
+		if j, ok := count[num]; ok {
 			return []int{j,i}
 		}
 		count[target - num] = i
