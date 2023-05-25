@@ -50,7 +50,7 @@ func isValid(s string) bool {
 
 // cool approach
 func isValid2(s string) bool {
-	l := make([]rune, 0)
+	l := []rune{}
 	for _, v := range s {
 		if v == '{' || v == '[' || v == '(' {
 			l = append(l, v)
