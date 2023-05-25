@@ -48,6 +48,25 @@ func isValid(s string) bool {
 	}
 }
 
+// cool approach
+func isValid2(s string) bool {
+	l := make([]rune, 0)
+	for _, v := range s {
+		if v == '{' || v == '[' || v == '(' {
+			l = append(l, v)
+		} else if len(l) > 0 {
+			e := l[len(l)-1]
+			if (v == '}' && e != '{') || (v == ']' && e != '[') || (v == ')' && e != '(') {
+				return false
+			}
+			l = l[:len(l)-1]
+		} else {
+			return false
+		}
+	}
+	return len(l) == 0
+}
+
 // Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 
 // An input string is valid if:
