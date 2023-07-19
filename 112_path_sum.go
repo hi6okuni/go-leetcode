@@ -15,6 +15,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+// dfs(stack)
 func hasPathSum(root *TreeNode, targetSum int) bool {
 	if root == nil {
 		return false
@@ -28,28 +29,78 @@ func hasPathSum(root *TreeNode, targetSum int) bool {
 
 	return hasPathSum(root.Left, targetSum) || hasPathSum(root.Right, targetSum)
 
-	// var dfs func(now *TreeNode, sum int) bool
-	// dfs = func(now *TreeNode, sum int) bool {
-	// 	sum += now.Val
-	// 	leftHasTargetSum := false
-	// 	rightHasTargetSum := false
+}
 
-	// 	if now.Left != nil {
-	// 		leftHasTargetSum = dfs(now.Left, sum)
-	// 	}
+// dfs(stack)を再帰を使わずに
+func hasPathSum2(root *TreeNode, targetSum int) bool {
+	type Stack struct {
+		targetSum int
+		treenode  *TreeNode
+	}
 
-	// 	if now.Right != nil {
-	// 		rightHasTargetSum = dfs(now.Right, sum)
-	// 	}
+	stack := []Stack{
+		{
+			targetSum: targetSum,
+			treenode:  root,
+		},
+	}
 
-	// 	if now.Left == nil && now.Right == nil {
-	// 		return targetSum == sum
-	// 	}
+	for len(stack) > 0 {
+		curNode := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		if curNode.treenode == nil {
+			continue
+		}
+		curNode.targetSum -= curNode.treenode.Val
 
-	// 	return leftHasTargetSum || rightHasTargetSum
-	// }
+		if curNode.treenode.Left == nil && curNode.treenode.Right == nil {
+			if curNode.targetSum == 0 {
+				return true
+			}
+			continue
+		}
 
-	// return dfs(root, 0)
+		stack = append(stack, Stack{targetSum: curNode.targetSum, treenode: curNode.treenode.Left})
+		stack = append(stack, Stack{targetSum: curNode.targetSum, treenode: curNode.treenode.Right})
+	}
+
+	return false
+}
+
+// bfs(queue)
+func hasPathSum3(root *TreeNode, targetSum int) bool {
+	type Queue struct {
+		targetSum int
+		treenode  *TreeNode
+	}
+
+	q := []Queue{
+		{
+			targetSum: targetSum,
+			treenode:  root,
+		},
+	}
+
+	for len(q) > 0 {
+		curNode := q[0]
+		q = q[1:]
+		if curNode.treenode == nil {
+			continue
+		}
+		curNode.targetSum -= curNode.treenode.Val
+
+		if curNode.treenode.Left == nil && curNode.treenode.Right == nil {
+			if curNode.targetSum == 0 {
+				return true
+			}
+			continue
+		}
+
+		q = append(q, Queue{targetSum: curNode.targetSum, treenode: curNode.treenode.Left})
+		q = append(q, Queue{targetSum: curNode.targetSum, treenode: curNode.treenode.Right})
+	}
+
+	return false
 }
 
 // Given the root of a binary tree and an integer targetSum, return true if the tree has a root-to-leaf path such that adding up all the values along the path equals targetSum.
