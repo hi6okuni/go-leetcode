@@ -1,21 +1,41 @@
 package main
 
+// keyword: hashmap
+
+/*
+comment:
+map[numberのvalue]numberのposition のようなhashmapを作ることでO(n)で解決できる
+mapのkeyにvalueを入れて、mapのvalueにpositionを入れるという直感とは逆のmapを用意することが鍵
+*/
+
 func twoSum(nums []int, target int) []int {
+	hashmap := make(map[int]int)
+
 	for i, num := range nums {
-		newNumsSlice := nums[i+1:]
-		maps := map[int]int{}
-
-		for ii, num := range newNumsSlice {
-			maps[num] = ii + i + 1
+		if position, ok := hashmap[target-num]; ok {
+			return []int{position, i}
 		}
-
-		if val, ok := maps[target-num]; ok {
-			return []int{i, val}
-		}
+		hashmap[num] = i
 	}
-
-	return nil
+	return []int{}
 }
+
+// func twoSum(nums []int, target int) []int {
+// 	for i, num := range nums {
+// 		newNumsSlice := nums[i+1:]
+// 		maps := map[int]int{}
+
+// 		for ii, num := range newNumsSlice {
+// 			maps[num] = ii + i + 1
+// 		}
+
+// 		if val, ok := maps[target-num]; ok {
+// 			return []int{i, val}
+// 		}
+// 	}
+
+// 	return nil
+// }
 
 /*
 Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.

@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	hashtables "leetcode/hashTables"
+)
 
 func main() {
-	fmt.Println("yo, world")
+	hashtables.Test()
 }
