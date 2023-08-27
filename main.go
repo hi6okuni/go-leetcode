@@ -1,9 +1,8 @@
 package main
 
-import (
-	hashtables "leetcode/hashTables"
-)
+import "leetcode/concurrency"
 
 func main() {
-	hashtables.Test()
+	// hashtables.Test()
+	concurrency.Test()
 }
