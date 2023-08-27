@@ -13,6 +13,23 @@ func recursive(curr, prev *ListNode) *ListNode {
 	return recursive(next, curr)
 }
 
+// func reverseList(head *ListNode) *ListNode {
+// 	if head == nil {
+// 		return nil
+// 	}
+// 	node := &ListNode{
+// 		Val: head.Val,
+// 	}
+// 	for head.Next != nil {
+// 		head = head.Next
+// 		node = &ListNode{
+// 			Val:  head.Val,
+// 			Next: node,
+// 		}
+// 	}
+// 	return node
+// }
+
 // Given the head of a singly linked list, reverse the list, and return the reversed list.
 
 // Example 1:
