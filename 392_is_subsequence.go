@@ -6,13 +6,9 @@ func isSubsequence(s string, t string) bool {
 	}
 
 	cur := 0
-	for i := 0; i < len(t); i++ {
+	for i := 0; i < len(t) && cur < len(s); i++ {
 		if t[i] == s[cur] {
 			cur++
-		}
-
-		if cur == len(s) {
-			break
 		}
 	}
 

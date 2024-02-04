@@ -13,6 +13,20 @@ func recursive(curr, prev *ListNode) *ListNode {
 	return recursive(next, curr)
 }
 
+func reverseList2(head *ListNode) *ListNode {
+	var revHead *ListNode
+
+	for head != nil {
+		tmpNext := head.Next
+		head.Next = revHead
+		revHead = head
+
+		head = tmpNext
+	}
+
+	return revHead
+}
+
 // func reverseList(head *ListNode) *ListNode {
 // 	if head == nil {
 // 		return nil

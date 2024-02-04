@@ -1,5 +1,6 @@
 package main
 
+// bit manipulation
 func subsets(nums []int) [][]int {
 	var ans [][]int
 	for bit := 0; bit < (1 << len(nums)); bit++ {
@@ -11,8 +12,56 @@ func subsets(nums []int) [][]int {
 		}
 		ans = append(ans, subset)
 	}
+
 	return ans
 }
+
+// backtracking
+func subsets2(nums []int) [][]int {
+	ans := [][]int{}
+	var backtrack func(idx, cap int, list []int)
+	backtrack = func(idx, cap int, list []int) {
+		if len(list) == cap {
+			temp := make([]int, cap)
+			copy(temp, list)
+			ans = append(ans, temp)
+			return
+		}
+
+		for i := idx; i < len(nums); i++ {
+			backtrack(i+1, cap, append(list, nums[i]))
+		}
+	}
+
+	for i := 0; i <= len(nums); i++ {
+		backtrack(0, i, []int{})
+	}
+
+	return ans
+}
+
+// func subsets(nums []int) [][]int {
+//     res := [][]int{}
+
+//     for i := 0; i <= len(nums); i++ {
+//         find(nums, 0, i, []int{}, &res)
+//     }
+
+//     return res
+// }
+
+// func find(nums []int, idx, k int, list []int, res *[][]int) {
+//     if len(list) == k {
+//         temp := make([]int, k)
+//         copy(temp, list)
+//         (*res) = append(*res, temp)
+//         return
+//     }
+
+//     for i := idx; i < len(nums); i++ {
+//         find(nums, i+1, k, append(list, nums[i]), res)
+//     }
+// }
 
 // Given an integer array nums of unique elements, return all possible
 // subsets
